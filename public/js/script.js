@@ -1,210 +1,276 @@
- <script>
-        const WEBHOOK_URL = 'TU_WEBHOOK_N8N_AQUI'; // Cambiar por tu webhook
-        let messageHistory = [];
-        
-        // Inicializar tiempo de bienvenida
-        document.getElementById('welcomeTime').textContent = getCurrentTime();
-        
-        function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const message = input.value.trim();
-            
-            if (message === '') return;
-            
-            addUserMessage(message);
-            input.value = '';
-            input.style.height = 'auto';
-            hideQuickSuggestions();
-            showTypingIndicator();
-            sendToN8N(message);
-        }
-        
-        function sendQuickMessage(message) {
-            hideQuickSuggestions();
-            addUserMessage(message);
-            showTypingIndicator();
-            sendToN8N(message);
-        }
-        
-        function addUserMessage(text) {
-            const chatBody = document.getElementById('chatBody');
-            const time = getCurrentTime();
-            
-            const messageHTML = `
-                <div class="chat-message user-message">
-                    <div class="message-avatar">
-                        <i class="bi bi-person-fill"></i>
-                    </div>
-                    <div class="message-content">
-                        <div class="message-bubble">
-                            <p>${escapeHtml(text)}</p>
-                        </div>
-                        <span class="message-time">${time}</span>
-                    </div>
+// Configuración del webhook de n8n
+const WEBHOOK_URL = 'TU_WEBHOOK_N8N_AQUI'; // Reemplazar con la URL real del webhook
+let messageHistory = [];
+
+// Inicialización cuando carga la página
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('welcomeTime').textContent = getCurrentTime();
+});
+
+// Enviar mensaje desde el input
+function sendMessage() {
+    const input = document.getElementById('chatInput');
+    const message = input.value.trim();
+    
+    if (message === '') return;
+    
+    addUserMessage(message);
+    input.value = '';
+    input.style.height = 'auto';
+    hideQuickSuggestions();
+    showTypingIndicator();
+    sendToN8N(message);
+}
+
+// Enviar mensaje desde un botón de sugerencia
+function sendQuickMessage(message) {
+    hideQuickSuggestions();
+    addUserMessage(message);
+    showTypingIndicator();
+    sendToN8N(message);
+}
+
+// Agregar mensaje del usuario al chat
+function addUserMessage(text) {
+    const chatBody = document.getElementById('chatBody');
+    const time = getCurrentTime();
+    
+    const messageHTML = `
+        <div class="chat-message user-message">
+            <div class="message-avatar">
+                <i class="bi bi-person-fill"></i>
+            </div>
+            <div class="message-content">
+                <div class="message-bubble">
+                    <p>${escapeHtml(text)}</p>
                 </div>
-            `;
-            
-            chatBody.insertAdjacentHTML('beforeend', messageHTML);
-            scrollToBottom();
-            
-            messageHistory.push({
-                role: 'user',
-                content: text,
-                timestamp: new Date().toISOString()
-            });
+                <span class="message-time">${time}</span>
+            </div>
+        </div>
+    `;
+    
+    chatBody.insertAdjacentHTML('beforeend', messageHTML);
+    scrollToBottom();
+    
+    messageHistory.push({
+        role: 'user',
+        content: text,
+        timestamp: new Date().toISOString()
+    });
+}
+
+// Agregar mensaje del bot al chat
+function addBotMessage(text) {
+    const chatBody = document.getElementById('chatBody');
+    const time = getCurrentTime();
+    
+    const messageHTML = `
+        <div class="chat-message bot-message">
+            <div class="message-avatar">
+                <i class="bi bi-robot"></i>
+            </div>
+            <div class="message-content">
+                <div class="message-bubble">
+                    ${formatBotMessage(text)}
+                </div>
+                <span class="message-time">${time}</span>
+            </div>
+        </div>
+    `;
+    
+    chatBody.insertAdjacentHTML('beforeend', messageHTML);
+    scrollToBottom();
+    
+    messageHistory.push({
+        role: 'bot',
+        content: text,
+        timestamp: new Date().toISOString()
+    });
+}
+
+// Limpiar y reiniciar la conversación
+function clearChat() {
+    const chatBody = document.getElementById('chatBody');
+    const time = getCurrentTime();
+    
+    chatBody.innerHTML = `
+        <div class="chat-message bot-message">
+            <div class="message-avatar">
+                <i class="bi bi-robot"></i>
+            </div>
+            <div class="message-content">
+                <div class="message-bubble">
+                    <p>¡Hola! 👋 Soy el asistente virtual de la Facultad de Ingeniería de Sistemas.</p>
+                    <p>Puedo ayudarte con información sobre trámites académicos, inscripciones, modalidades de grado y más. ¿En qué puedo ayudarte hoy?</p>
+                </div>
+                <span class="message-time">${time}</span>
+            </div>
+        </div>
+        <div class="quick-suggestions" id="quickSuggestions">
+            <div class="suggestions-label">¿En qué puedo ayudarte?</div>
+            <button class="suggestion-chip" onclick="sendQuickMessage('¿Cuáles son las modalidades de trabajos de grado?')">
+                <i class="bi bi-mortarboard-fill"></i> Modalidades de grado
+            </button>
+            <button class="suggestion-chip" onclick="sendQuickMessage('Información sobre TyT PRO / SABER PRO')">
+                <i class="bi bi-clipboard-check"></i> TyT PRO / SABER PRO
+            </button>
+            <button class="suggestion-chip" onclick="sendQuickMessage('¿Cómo realizo la matrícula y liquidación?')">
+                <i class="bi bi-cash-coin"></i> Matrícula / Liquidación
+            </button>
+            <button class="suggestion-chip" onclick="sendQuickMessage('Ayuda con usuarios y contraseñas')">
+                <i class="bi bi-key-fill"></i> Usuarios / Contraseñas
+            </button>
+            <button class="suggestion-chip" onclick="sendQuickMessage('¿Cómo solicito cambio de jornada?')">
+                <i class="bi bi-calendar-week"></i> Cambio de jornada
+            </button>
+            <button class="suggestion-chip" onclick="sendQuickMessage('Información sobre cambios de grupo y horarios')">
+                <i class="bi bi-clock-history"></i> Cambios de grupo
+            </button>
+            <button class="suggestion-chip" onclick="sendQuickMessage('¿Qué descuentos hay para única materia?')">
+                <i class="bi bi-percent"></i> Descuentos
+            </button>
+            <button class="suggestion-chip" onclick="sendQuickMessage('¿Cómo me inscribo al programa?')">
+                <i class="bi bi-pencil-square"></i> Inscripciones
+            </button>
+            <button class="suggestion-chip" onclick="sendQuickMessage('Documentos necesarios para grado')">
+                <i class="bi bi-file-earmark-text"></i> Documentos de grado
+            </button>
+            <button class="suggestion-chip" onclick="sendQuickMessage('Información sobre readmisión o reingreso')">
+                <i class="bi bi-arrow-clockwise"></i> Readmisión / Reingreso
+            </button>
+            <button class="suggestion-chip" onclick="sendQuickMessage('¿Qué son los créditos académicos?')">
+                <i class="bi bi-journal-bookmark"></i> Créditos académicos
+            </button>
+            <button class="suggestion-chip" onclick="sendQuickMessage('¿Cómo cancelo el semestre?')">
+                <i class="bi bi-x-circle"></i> Cancelación de semestre
+            </button>
+        </div>
+    `;
+    
+    messageHistory = [];
+    chatBody.scrollTop = 0;
+}
+
+// Comunicación con n8n
+async function sendToN8N(message) {
+    try {
+        const response = await fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                message: message,
+                history: messageHistory.slice(-10), // Enviar últimos 10 mensajes para contexto
+                timestamp: new Date().toISOString(),
+                sessionId: getSessionId() // ID de sesión para mantener contexto
+            })
+        });
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
         
-        function addBotMessage(text) {
-            const chatBody = document.getElementById('chatBody');
-            const time = getCurrentTime();
-            
-            const messageHTML = `
-                <div class="chat-message bot-message">
-                    <div class="message-avatar">
-                        <i class="bi bi-robot"></i>
-                    </div>
-                    <div class="message-content">
-                        <div class="message-bubble">
-                            ${formatBotMessage(text)}
-                        </div>
-                        <span class="message-time">${time}</span>
-                    </div>
-                </div>
-            `;
-            
-            chatBody.insertAdjacentHTML('beforeend', messageHTML);
-            scrollToBottom();
-            
-            messageHistory.push({
-                role: 'bot',
-                content: text,
-                timestamp: new Date().toISOString()
-            });
-        }
+        const data = await response.json();
         
-        function clearChat() {
-            const chatBody = document.getElementById('chatBody');
-            const time = getCurrentTime();
+        // Simular delay de escritura natural
+        setTimeout(() => {
+            hideTypingIndicator();
+            // Intentar obtener la respuesta de diferentes campos posibles
+            const botResponse = data.response || data.output || data.message || data.text;
             
-            chatBody.innerHTML = `
-                <div class="chat-message bot-message">
-                    <div class="message-avatar">
-                        <i class="bi bi-robot"></i>
-                    </div>
-                    <div class="message-content">
-                        <div class="message-bubble">
-                            <p>¡Hola! 👋 Soy el asistente virtual de la Facultad de Ingeniería de Sistemas.</p>
-                            <p>Puedo ayudarte con información sobre horarios, inscripciones, plan de estudios, proyectos y más. ¿En qué puedo ayudarte hoy?</p>
-                        </div>
-                        <span class="message-time">${time}</span>
-                    </div>
-                </div>
-                <div class="quick-suggestions" id="quickSuggestions">
-                    <div class="suggestions-label">Preguntas frecuentes:</div>
-                    <button class="suggestion-chip" onclick="sendQuickMessage('¿Cuál es el plan de estudios?')">
-                        <i class="bi bi-journal-text"></i> Plan de estudios
-                    </button>
-                    <button class="suggestion-chip" onclick="sendQuickMessage('¿Cuáles son los horarios de atención?')">
-                        <i class="bi bi-clock"></i> Horarios
-                    </button>
-                    <button class="suggestion-chip" onclick="sendQuickMessage('¿Cómo me inscribo a una materia?')">
-                        <i class="bi bi-pencil-square"></i> Inscripciones
-                    </button>
-                    <button class="suggestion-chip" onclick="sendQuickMessage('Información sobre proyectos de grado')">
-                        <i class="bi bi-mortarboard"></i> Proyectos
-                    </button>
-                    <button class="suggestion-chip" onclick="sendQuickMessage('¿Quiénes son los docentes?')">
-                        <i class="bi bi-people"></i> Docentes
-                    </button>
-                    <button class="suggestion-chip" onclick="sendQuickMessage('Información sobre prácticas profesionales')">
-                        <i class="bi bi-briefcase"></i> Prácticas
-                    </button>
-                </div>
-            `;
-            
-            messageHistory = [];
-            chatBody.scrollTop = 0;
-        }
-        
-        // Comunicación con n8n (CON RESPUESTAS DE PRUEBA)
-        async function sendToN8N(message) {
-            // MODO PRUEBA - Descomenta esto para probar sin n8n
-            setTimeout(() => {
-                hideTypingIndicator();
-                const response = getTestResponse(message);
-                addBotMessage(response);
-            }, 1500 + Math.random() * 1000);
-            
-            /* MODO PRODUCCIÓN - Comenta el código de arriba y descomenta esto cuando tengas n8n
-            try {
-                const response = await fetch(WEBHOOK_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        message: message,
-                        history: messageHistory.slice(-10),
-                        timestamp: new Date().toISOString()
-                    })
-                });
-                
-                if (!response.ok) throw new Error('Error en la respuesta');
-                
-                const data = await response.json();
-                
-                setTimeout(() => {
-                    hideTypingIndicator();
-                    const botResponse = data.response || data.output || data.message;
-                    addBotMessage(botResponse || 'Lo siento, no pude procesar tu mensaje.');
-                }, 1000);
-                
-            } catch (error) {
-                console.error('Error:', error);
-                hideTypingIndicator();
-                addBotMessage('Lo siento, hay un problema con la conexión. Por favor, intenta de nuevo.');
+            if (botResponse) {
+                addBotMessage(botResponse);
+            } else {
+                addBotMessage('Lo siento, no pude procesar tu mensaje. Por favor, intenta de nuevo.');
             }
-            */
-        }
+        }, 800);
         
-        // Respuestas de prueba
-        function getTestResponse(message) {
-            const msgLower = message.toLowerCase();
-            
-            if (msgLower.includes('plan de estudios') || msgLower.includes('pensum')) {
-                return `El plan de estudios de Ingeniería de Sistemas incluye 10 semestres académicos con las siguientes áreas principales:
+    } catch (error) {
+        console.error('Error al conectar con n8n:', error);
+        hideTypingIndicator();
+        addBotMessage('Lo siento, hay un problema con la conexión. Por favor, intenta de nuevo en unos momentos.');
+    }
+}
 
-• Programación y Desarrollo de Software
-• Bases de Datos y Sistemas de Información
-• Redes y Comunicaciones
-• Arquitectura de Computadores
-• Gestión de Proyectos
-• Inteligencia Artificial y Machine Learning
+// Utilidades
+function getCurrentTime() {
+    const now = new Date();
+    return now.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
+}
 
-¿Te gustaría información más detallada sobre algún semestre en particular?`;
-            } 
-            else if (msgLower.includes('horarios') || msgLower.includes('horario')) {
-                return `Los horarios de atención de la Facultad de Ingeniería de Sistemas son:
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
 
-📅 Lunes a Viernes: 7:00 AM - 7:00 PM
-📅 Sábados: 8:00 AM - 2:00 PM
+function formatBotMessage(text) {
+    // Convertir saltos de línea a <br>
+    text = text.replace(/\n/g, '<br>');
+    
+    // Convertir URLs a enlaces
+    text = text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
+    
+    // Envolver en párrafos si no hay HTML
+    if (!text.includes('<br>') && !text.includes('<p>')) {
+        text = `<p>${text}</p>`;
+    }
+    
+    return text;
+}
 
-Para atención específica:
-• Secretaría: 8:00 AM - 12:00 PM y 2:00 PM - 5:00 PM
-• Coordinación: Previa cita
+function scrollToBottom() {
+    const chatBody = document.getElementById('chatBody');
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
 
-¿Necesitas información sobre algún servicio específico?`;
-            }
-            else if (msgLower.includes('inscri') || msgLower.includes('materia')) {
-                return `Para inscribirte a materias debes seguir estos pasos:
+function hideQuickSuggestions() {
+    const suggestions = document.getElementById('quickSuggestions');
+    if (suggestions) {
+        suggestions.style.display = 'none';
+    }
+}
 
-1. Ingresa al portal académico con tu usuario y contraseña
-2. Ve a la sección "Inscripciones"
-3. Verifica los prerrequisitos de las materias
-4. Selecciona las materias disponibles según tu horario
-5. Confirma tu inscripción antes de la fecha límite
+function showTypingIndicator() {
+    const indicator = document.getElementById('typingIndicator');
+    if (indicator) {
+        indicator.style.display = 'flex';
+    }
+}
 
-📌 Recuerda: El periodo de inscripciones es del 15 al 25 de cada mes.
+function hideTypingIndicator() {
+    const indicator = document.getElementById('typingIndicator');
+    if (indicator) {
+        indicator.style.display = 'none';
+    }
+}
 
-¿Tienes alguna duda específica sobre el proceso 
-</script>
+function handleKeyPress(event) {
+    // Enviar con Enter, nueva línea con Shift+Enter
+    if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        sendMessage();
+    }
+}
+
+function getSessionId() {
+    // Obtener o crear ID de sesión único
+    let sessionId = sessionStorage.getItem('chatbot_session_id');
+    if (!sessionId) {
+        sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        sessionStorage.setItem('chatbot_session_id', sessionId);
+    }
+    return sessionId;
+}
+
+// Auto-ajustar altura del textarea
+document.addEventListener('DOMContentLoaded', function() {
+    const textarea = document.getElementById('chatInput');
+    if (textarea) {
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+        });
+    }
+});
