@@ -227,6 +227,14 @@
             background: linear-gradient(180deg, #0066A1 0%, #A4D233 100%);
             border-radius: 10px;
         }
+
+        .chatbot-body {
+        scrollbar-width: thin; /* Firefox */
+        scrollbar-color: #0066A1 #f1f1f1; /* Firefox */
+        overflow-y: scroll; /* Forzar scrollbar */
+        -webkit-overflow-scrolling: touch; /* iOS smooth scroll */
+        }
+        
         
         /* Mensajes */
         .chat-message {
@@ -475,8 +483,16 @@
             color: #6c757d;
         }
         
-        /* Responsive */
+
         @media (max-width: 768px) {
+            .chatbot-body::-webkit-scrollbar {
+                width: 6px; 
+                display: block !important;
+            }
+            
+            .chatbot-body {
+                overflow-y: scroll !important;
+            }
             .chatbot-window {
                 height: 550px;
             }
