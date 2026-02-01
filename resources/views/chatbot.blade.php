@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asistente Virtual - Ingeniería de Sistemas UTS</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/chatbot.css') }}">
 </head>
 <body>
     <div class="page-header">
@@ -139,6 +139,7 @@
         </div>
     </div>
     
-    <script src="{{ asset('js/chatbot.js') }}"></script>
+    <script src="{{ secure_asset('js/chatbot.js') }}"></script>
+
 </body>
 </html>
