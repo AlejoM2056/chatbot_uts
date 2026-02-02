@@ -487,11 +487,11 @@
             <h2>
                 <i class="bi bi-info-circle-fill"></i>
                 Sobre el Asistente Virtual
-            </h2>
+            </h2><br>
             <p>
                 Bienvenido al asistente virtual de la Facultad de Ingeniería de Sistemas. 
                 Primero selecciona una categoría, luego podrás hacer tu pregunta específica.
-            </p>
+            </p><br>
         </div>
         
         <div class="chatbot-container">
@@ -587,7 +587,7 @@
                             class="chat-input" 
                             id="chatInput" 
                             placeholder="Primero selecciona una categoría arriba..."
-                            rows="1"
+                            rows="2"
                             onkeypress="handleKeyPress(event)"
                             disabled
                         ></textarea>
