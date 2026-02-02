@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asistente Virtual - Ingeniería de Sistemas UTS</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-
 </head>
 <body>
     <style>
@@ -91,25 +90,6 @@
             color: var(--uts-gray);
             line-height: 1.7;
             margin-bottom: 0.75rem;
-        }
-        
-        .info-section ul {
-            list-style: none;
-            padding-left: 0;
-            margin-top: 1rem;
-        }
-        
-        .info-section li {
-            padding: 0.5rem 0;
-            color: var(--uts-gray);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .info-section li i {
-            color: var(--uts-green);
-            font-size: 1.2rem;
         }
         
         /* Chatbot Container */
@@ -226,7 +206,6 @@
             background: linear-gradient(180deg, #0066A1 0%, #A4D233 100%);
             border-radius: 10px;
         }
-        
         
         /* Mensajes */
         .chat-message {
@@ -494,6 +473,7 @@
             }
         }
     </style>
+    
     <div class="page-header">
         <div class="badge-info">
             <i class="bi bi-robot me-2"></i> Asistente Virtual
@@ -510,7 +490,7 @@
             </h2>
             <p>
                 Bienvenido al asistente virtual de la Facultad de Ingeniería de Sistemas. 
-                Estoy diseñado para ayudarte a resolver tus dudas.
+                Primero selecciona una categoría, luego podrás hacer tu pregunta específica.
             </p>
         </div>
         
@@ -543,48 +523,48 @@
                         <div class="message-content">
                             <div class="message-bubble">
                                 <p>¡Hola! 👋 Soy el asistente virtual de la Facultad de Ingeniería de Sistemas.</p>
-                                <p>Puedo ayudarte con información sobre trámites académicos, inscripciones, modalidades de grado y más. ¿En qué puedo ayudarte hoy?</p>
+                                <p>Para ayudarte mejor, <strong>primero selecciona una categoría</strong> de las opciones a continuación:</p>
                             </div>
                             <span class="message-time" id="welcomeTime"></span>
                         </div>
                     </div>
                     
                     <div class="quick-suggestions" id="quickSuggestions">
-                        <div class="suggestions-label">¿En qué puedo ayudarte?</div>
-                        <button class="suggestion-chip" onclick="sendQuickMessage('¿Cuáles son las modalidades de trabajos de grado?')">
+                        <div class="suggestions-label">Selecciona una categoría:</div>
+                        <button class="suggestion-chip" onclick="selectCategory('Modalidades de grado', 'bi-mortarboard-fill')">
                             <i class="bi bi-mortarboard-fill"></i> Modalidades de grado
                         </button>
-                        <button class="suggestion-chip" onclick="sendQuickMessage('Información sobre TyT PRO / SABER PRO')">
+                        <button class="suggestion-chip" onclick="selectCategory('TyT PRO / SABER PRO', 'bi-clipboard-check')">
                             <i class="bi bi-clipboard-check"></i> TyT PRO / SABER PRO
                         </button>
-                        <button class="suggestion-chip" onclick="sendQuickMessage('¿Cómo realizo la matrícula y liquidación?')">
+                        <button class="suggestion-chip" onclick="selectCategory('Matrícula y Liquidación', 'bi-cash-coin')">
                             <i class="bi bi-cash-coin"></i> Matrícula / Liquidación
                         </button>
-                        <button class="suggestion-chip" onclick="sendQuickMessage('Ayuda con usuarios y contraseñas')">
+                        <button class="suggestion-chip" onclick="selectCategory('Usuarios y Contraseñas', 'bi-key-fill')">
                             <i class="bi bi-key-fill"></i> Usuarios / Contraseñas
                         </button>
-                        <button class="suggestion-chip" onclick="sendQuickMessage('¿Cómo solicito cambio de jornada?')">
+                        <button class="suggestion-chip" onclick="selectCategory('Cambio de jornada', 'bi-calendar-week')">
                             <i class="bi bi-calendar-week"></i> Cambio de jornada
                         </button>
-                        <button class="suggestion-chip" onclick="sendQuickMessage('Información sobre cambios de grupo y horarios')">
+                        <button class="suggestion-chip" onclick="selectCategory('Cambios de grupo y horarios', 'bi-clock-history')">
                             <i class="bi bi-clock-history"></i> Cambios de grupo
                         </button>
-                        <button class="suggestion-chip" onclick="sendQuickMessage('¿Qué descuentos hay para única materia?')">
+                        <button class="suggestion-chip" onclick="selectCategory('Descuentos', 'bi-percent')">
                             <i class="bi bi-percent"></i> Descuentos
                         </button>
-                        <button class="suggestion-chip" onclick="sendQuickMessage('¿Cómo me inscribo al programa?')">
+                        <button class="suggestion-chip" onclick="selectCategory('Inscripciones', 'bi-pencil-square')">
                             <i class="bi bi-pencil-square"></i> Inscripciones
                         </button>
-                        <button class="suggestion-chip" onclick="sendQuickMessage('Documentos necesarios para grado')">
+                        <button class="suggestion-chip" onclick="selectCategory('Documentos de grado', 'bi-file-earmark-text')">
                             <i class="bi bi-file-earmark-text"></i> Documentos de grado
                         </button>
-                        <button class="suggestion-chip" onclick="sendQuickMessage('Información sobre readmisión o reingreso')">
+                        <button class="suggestion-chip" onclick="selectCategory('Readmisión y Reingreso', 'bi-arrow-clockwise')">
                             <i class="bi bi-arrow-clockwise"></i> Readmisión / Reingreso
                         </button>
-                        <button class="suggestion-chip" onclick="sendQuickMessage('¿Qué son los créditos académicos?')">
+                        <button class="suggestion-chip" onclick="selectCategory('Créditos académicos', 'bi-journal-bookmark')">
                             <i class="bi bi-journal-bookmark"></i> Créditos académicos
                         </button>
-                        <button class="suggestion-chip" onclick="sendQuickMessage('¿Cómo cancelo el semestre?')">
+                        <button class="suggestion-chip" onclick="selectCategory('Cancelación de semestre', 'bi-x-circle')">
                             <i class="bi bi-x-circle"></i> Cancelación de semestre
                         </button>
                     </div>
@@ -606,11 +586,12 @@
                         <textarea 
                             class="chat-input" 
                             id="chatInput" 
-                            placeholder="Escribe tu pregunta aquí..."
+                            placeholder="Primero selecciona una categoría arriba..."
                             rows="1"
                             onkeypress="handleKeyPress(event)"
+                            disabled
                         ></textarea>
-                        <button class="btn-send" id="sendBtn" onclick="sendMessage()">
+                        <button class="btn-send" id="sendBtn" onclick="sendMessage()" disabled>
                             <i class="bi bi-send-fill"></i>
                         </button>
                     </div>
@@ -626,282 +607,357 @@
     </div>
     
     <script>
-        // Configuración del webhook de n8n
-const WEBHOOK_URL = 'https://n8n.srv1314294.hstgr.cloud/webhook-test/2b915700-f67d-45e1-80a2-bc1f737dcdf8';// Reemplazar con la URL real del webhook
-let messageHistory = [];
-
-// Inicialización cuando carga la página
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('welcomeTime').textContent = getCurrentTime();
-});
-
-// Enviar mensaje desde el input
-function sendMessage() {
-    const input = document.getElementById('chatInput');
-    const message = input.value.trim();
-    
-    if (message === '') return;
-    
-    addUserMessage(message);
-    input.value = '';
-    input.style.height = 'auto';
-    hideQuickSuggestions();
-    showTypingIndicator();
-    sendToN8N(message);
-}
-
-// Enviar mensaje desde un botón de sugerencia
-function sendQuickMessage(message) {
-    hideQuickSuggestions();
-    addUserMessage(message);
-    showTypingIndicator();
-    sendToN8N(message);
-}
-
-// Agregar mensaje del usuario al chat
-function addUserMessage(text) {
-    const chatBody = document.getElementById('chatBody');
-    const time = getCurrentTime();
-    
-    const messageHTML = `
-        <div class="chat-message user-message">
-            <div class="message-avatar">
-                <i class="bi bi-person-fill"></i>
-            </div>
-            <div class="message-content">
-                <div class="message-bubble">
-                    <p>${escapeHtml(text)}</p>
-                </div>
-                <span class="message-time">${time}</span>
-            </div>
-        </div>
-    `;
-    
-    chatBody.insertAdjacentHTML('beforeend', messageHTML);
-    scrollToBottom();
-    
-    messageHistory.push({
-        role: 'user',
-        content: text,
-        timestamp: new Date().toISOString()
-    });
-}
-
-// Agregar mensaje del bot al chat
-function addBotMessage(text) {
-    const chatBody = document.getElementById('chatBody');
-    const time = getCurrentTime();
-    
-    const messageHTML = `
-        <div class="chat-message bot-message">
-            <div class="message-avatar">
-                <i class="bi bi-robot"></i>
-            </div>
-            <div class="message-content">
-                <div class="message-bubble">
-                    ${formatBotMessage(text)}
-                </div>
-                <span class="message-time">${time}</span>
-            </div>
-        </div>
-    `;
-    
-    chatBody.insertAdjacentHTML('beforeend', messageHTML);
-    scrollToBottom();
-    
-    messageHistory.push({
-        role: 'bot',
-        content: text,
-        timestamp: new Date().toISOString()
-    });
-}
-
-// Limpiar y reiniciar la conversación
-function clearChat() {
-    const chatBody = document.getElementById('chatBody');
-    const time = getCurrentTime();
-    
-    chatBody.innerHTML = `
-        <div class="chat-message bot-message">
-            <div class="message-avatar">
-                <i class="bi bi-robot"></i>
-            </div>
-            <div class="message-content">
-                <div class="message-bubble">
-                    <p>¡Hola! 👋 Soy el asistente virtual de la Facultad de Ingeniería de Sistemas.</p>
-                    <p>Puedo ayudarte con información sobre trámites académicos, inscripciones, modalidades de grado y más. ¿En qué puedo ayudarte hoy?</p>
-                </div>
-                <span class="message-time">${time}</span>
-            </div>
-        </div>
-        <div class="quick-suggestions" id="quickSuggestions">
-            <div class="suggestions-label">¿En qué puedo ayudarte?</div>
-            <button class="suggestion-chip" onclick="sendQuickMessage('¿Cuáles son las modalidades de trabajos de grado?')">
-                <i class="bi bi-mortarboard-fill"></i> Modalidades de grado
-            </button>
-            <button class="suggestion-chip" onclick="sendQuickMessage('Información sobre TyT PRO / SABER PRO')">
-                <i class="bi bi-clipboard-check"></i> TyT PRO / SABER PRO
-            </button>
-            <button class="suggestion-chip" onclick="sendQuickMessage('¿Cómo realizo la matrícula y liquidación?')">
-                <i class="bi bi-cash-coin"></i> Matrícula / Liquidación
-            </button>
-            <button class="suggestion-chip" onclick="sendQuickMessage('Ayuda con usuarios y contraseñas')">
-                <i class="bi bi-key-fill"></i> Usuarios / Contraseñas
-            </button>
-            <button class="suggestion-chip" onclick="sendQuickMessage('¿Cómo solicito cambio de jornada?')">
-                <i class="bi bi-calendar-week"></i> Cambio de jornada
-            </button>
-            <button class="suggestion-chip" onclick="sendQuickMessage('Información sobre cambios de grupo y horarios')">
-                <i class="bi bi-clock-history"></i> Cambios de grupo
-            </button>
-            <button class="suggestion-chip" onclick="sendQuickMessage('¿Qué descuentos hay para única materia?')">
-                <i class="bi bi-percent"></i> Descuentos
-            </button>
-            <button class="suggestion-chip" onclick="sendQuickMessage('¿Cómo me inscribo al programa?')">
-                <i class="bi bi-pencil-square"></i> Inscripciones
-            </button>
-            <button class="suggestion-chip" onclick="sendQuickMessage('Documentos necesarios para grado')">
-                <i class="bi bi-file-earmark-text"></i> Documentos de grado
-            </button>
-            <button class="suggestion-chip" onclick="sendQuickMessage('Información sobre readmisión o reingreso')">
-                <i class="bi bi-arrow-clockwise"></i> Readmisión / Reingreso
-            </button>
-            <button class="suggestion-chip" onclick="sendQuickMessage('¿Qué son los créditos académicos?')">
-                <i class="bi bi-journal-bookmark"></i> Créditos académicos
-            </button>
-            <button class="suggestion-chip" onclick="sendQuickMessage('¿Cómo cancelo el semestre?')">
-                <i class="bi bi-x-circle"></i> Cancelación de semestre
-            </button>
-        </div>
-    `;
-    
-    messageHistory = [];
-    chatBody.scrollTop = 0;
-}
-
-// Comunicación con n8n
-async function sendToN8N(message) {
-    try {
-        const response = await fetch(WEBHOOK_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                message: message,
-                history: messageHistory.slice(-10), // Enviar últimos 10 mensajes para contexto
-                timestamp: new Date().toISOString(),
-                sessionId: getSessionId() // ID de sesión para mantener contexto
-            })
-        });
+        // Configuración
+        const WEBHOOK_URL = 'https://corsproxy.io/?' + encodeURIComponent('https://n8n.srv1314294.hstgr.cloud/webhook-test/2b915700-f67d-45e1-80a2-bc1f737dcdf8');
         
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        
-        // Simular delay de escritura natural
-        setTimeout(() => {
-            hideTypingIndicator();
-            // Intentar obtener la respuesta de diferentes campos posibles
-            const botResponse = data.response || data.output || data.message || data.text;
+        let messageHistory = [];
+        let currentCategory = null;
+        let waitingForQuestion = false;
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('welcomeTime').textContent = getCurrentTime();
             
-            if (botResponse) {
-                addBotMessage(botResponse);
-            } else {
-                addBotMessage('Lo siento, no pude procesar tu mensaje. Por favor, intenta de nuevo.');
+            // Auto-ajustar altura del textarea
+            const textarea = document.getElementById('chatInput');
+            if (textarea) {
+                textarea.addEventListener('input', function() {
+                    this.style.height = 'auto';
+                    this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+                });
             }
-        }, 800);
-        
-    } catch (error) {
-        console.error('Error al conectar con n8n:', error);
-        hideTypingIndicator();
-        addBotMessage('Lo siento, hay un problema con la conexión. Por favor, intenta de nuevo en unos momentos.');
-    }
-}
-
-// Utilidades
-function getCurrentTime() {
-    const now = new Date();
-    return now.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
-}
-
-function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-}
-
-function formatBotMessage(text) {
-    // Convertir saltos de línea a <br>
-    text = text.replace(/\n/g, '<br>');
-    
-    // Convertir URLs a enlaces
-    text = text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
-    
-    // Envolver en párrafos si no hay HTML
-    if (!text.includes('<br>') && !text.includes('<p>')) {
-        text = `<p>${text}</p>`;
-    }
-    
-    return text;
-}
-
-function scrollToBottom() {
-    const chatBody = document.getElementById('chatBody');
-    chatBody.scrollTop = chatBody.scrollHeight;
-}
-
-function hideQuickSuggestions() {
-    const suggestions = document.getElementById('quickSuggestions');
-    if (suggestions) {
-        suggestions.style.display = 'none';
-    }
-}
-
-function showTypingIndicator() {
-    const indicator = document.getElementById('typingIndicator');
-    if (indicator) {
-        indicator.style.display = 'flex';
-    }
-}
-
-function hideTypingIndicator() {
-    const indicator = document.getElementById('typingIndicator');
-    if (indicator) {
-        indicator.style.display = 'none';
-    }
-}
-
-function handleKeyPress(event) {
-    // Enviar con Enter, nueva línea con Shift+Enter
-    if (event.key === 'Enter' && !event.shiftKey) {
-        event.preventDefault();
-        sendMessage();
-    }
-}
-
-function getSessionId() {
-    // Obtener o crear ID de sesión único
-    let sessionId = sessionStorage.getItem('chatbot_session_id');
-    if (!sessionId) {
-        sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-        sessionStorage.setItem('chatbot_session_id', sessionId);
-    }
-    return sessionId;
-}
-
-// Auto-ajustar altura del textarea
-document.addEventListener('DOMContentLoaded', function() {
-    const textarea = document.getElementById('chatInput');
-    if (textarea) {
-        textarea.addEventListener('input', function() {
-            this.style.height = 'auto';
-            this.style.height = Math.min(this.scrollHeight, 120) + 'px';
         });
-    }
-});
+
+        // PASO 1: Seleccionar categoría
+        function selectCategory(category, icon) {
+            // Mostrar mensaje del usuario
+            addUserMessage(category);
+            
+            // Guardar categoría actual
+            currentCategory = category;
+            waitingForQuestion = true;
+            
+            // Ocultar sugerencias
+            hideQuickSuggestions();
+            
+            // Simular que el bot está escribiendo
+            showTypingIndicator();
+            
+            // Después de un delay, el bot responde
+            setTimeout(() => {
+                hideTypingIndicator();
+                addBotMessage(`Perfecto, has seleccionado la categoría: <strong>${category}</strong><br><br>Ahora sí, ¿cuál es tu pregunta específica sobre este tema? 📝`);
+                
+                // Habilitar el input para que el usuario escriba
+                enableInput();
+            }, 800);
+        }
+
+        // PASO 2: Enviar pregunta a la IA
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message === '') return;
+            
+            // Si no hay categoría seleccionada
+            if (!currentCategory) {
+                addBotMessage('⚠️ Por favor, primero selecciona una categoría de las opciones disponibles.');
+                return;
+            }
+            
+            // Agregar mensaje del usuario
+            addUserMessage(message);
+            input.value = '';
+            input.style.height = 'auto';
+            
+            // Deshabilitar input mientras se procesa
+            disableInput();
+            
+            // Mostrar indicador de escritura
+            showTypingIndicator();
+            
+            // Enviar a n8n con la categoría + pregunta
+            sendToN8N(message);
+        }
+
+        // Comunicación con n8n
+        async function sendToN8N(userQuestion) {
+            try {
+                const fullMessage = `Categoría: ${currentCategory}\nPregunta: ${userQuestion}`;
+                
+                const response = await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        category: currentCategory,
+                        question: userQuestion,
+                        message: fullMessage,
+                        history: messageHistory.slice(-10),
+                        timestamp: new Date().toISOString(),
+                        sessionId: getSessionId()
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    const botResponse = data.response || data.output || data.message || data.text;
+                    
+                    if (botResponse) {
+                        addBotMessage(botResponse);
+                    } else {
+                        addBotMessage('Lo siento, no pude procesar tu mensaje. Por favor, intenta de nuevo.');
+                    }
+                    
+                    // Después de responder, preguntar si necesita algo más
+                    setTimeout(() => {
+                        addBotMessage('¿Necesitas ayuda con algo más? Puedes hacer otra pregunta o <a href="#" onclick="resetCategory(); return false;">seleccionar otra categoría</a>.');
+                        enableInput();
+                    }, 1000);
+                    
+                }, 800);
+                
+            } catch (error) {
+                console.error('Error al conectar con n8n:', error);
+                hideTypingIndicator();
+                addBotMessage('Lo siento, hay un problema con la conexión. Por favor, intenta de nuevo en unos momentos.');
+                enableInput();
+            }
+        }
+
+        // Reiniciar para seleccionar nueva categoría
+        function resetCategory() {
+            currentCategory = null;
+            waitingForQuestion = false;
+            disableInput();
+            showCategorySuggestions();
+            addBotMessage('Selecciona una nueva categoría:');
+        }
+
+        // Agregar mensaje del usuario
+        function addUserMessage(text) {
+            const chatBody = document.getElementById('chatBody');
+            const time = getCurrentTime();
+            
+            const messageHTML = `
+                <div class="chat-message user-message">
+                    <div class="message-avatar">
+                        <i class="bi bi-person-fill"></i>
+                    </div>
+                    <div class="message-content">
+                        <div class="message-bubble">
+                            <p>${escapeHtml(text)}</p>
+                        </div>
+                        <span class="message-time">${time}</span>
+                    </div>
+                </div>
+            `;
+            
+            chatBody.insertAdjacentHTML('beforeend', messageHTML);
+            scrollToBottom();
+            
+            messageHistory.push({
+                role: 'user',
+                content: text,
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        // Agregar mensaje del bot
+        function addBotMessage(text) {
+            const chatBody = document.getElementById('chatBody');
+            const time = getCurrentTime();
+            
+            const messageHTML = `
+                <div class="chat-message bot-message">
+                    <div class="message-avatar">
+                        <i class="bi bi-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <div class="message-bubble">
+                            ${formatBotMessage(text)}
+                        </div>
+                        <span class="message-time">${time}</span>
+                    </div>
+                </div>
+            `;
+            
+            chatBody.insertAdjacentHTML('beforeend', messageHTML);
+            scrollToBottom();
+            
+            messageHistory.push({
+                role: 'bot',
+                content: text,
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        // Limpiar chat
+        function clearChat() {
+            const chatBody = document.getElementById('chatBody');
+            const time = getCurrentTime();
+            
+            currentCategory = null;
+            waitingForQuestion = false;
+            messageHistory = [];
+            
+            chatBody.innerHTML = `
+                <div class="chat-message bot-message">
+                    <div class="message-avatar">
+                        <i class="bi bi-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <div class="message-bubble">
+                            <p>¡Hola! 👋 Soy el asistente virtual de la Facultad de Ingeniería de Sistemas.</p>
+                            <p>Para ayudarte mejor, <strong>primero selecciona una categoría</strong> de las opciones a continuación:</p>
+                        </div>
+                        <span class="message-time">${time}</span>
+                    </div>
+                </div>
+            `;
+            
+            showCategorySuggestions();
+            disableInput();
+            chatBody.scrollTop = 0;
+        }
+
+        // Mostrar sugerencias de categorías
+        function showCategorySuggestions() {
+            const chatBody = document.getElementById('chatBody');
+            const suggestionsHTML = `
+                <div class="quick-suggestions" id="quickSuggestions">
+                    <div class="suggestions-label">Selecciona una categoría:</div>
+                    <button class="suggestion-chip" onclick="selectCategory('Modalidades de grado', 'bi-mortarboard-fill')">
+                        <i class="bi bi-mortarboard-fill"></i> Modalidades de grado
+                    </button>
+                    <button class="suggestion-chip" onclick="selectCategory('TyT PRO / SABER PRO', 'bi-clipboard-check')">
+                        <i class="bi bi-clipboard-check"></i> TyT PRO / SABER PRO
+                    </button>
+                    <button class="suggestion-chip" onclick="selectCategory('Matrícula y Liquidación', 'bi-cash-coin')">
+                        <i class="bi bi-cash-coin"></i> Matrícula / Liquidación
+                    </button>
+                    <button class="suggestion-chip" onclick="selectCategory('Usuarios y Contraseñas', 'bi-key-fill')">
+                        <i class="bi bi-key-fill"></i> Usuarios / Contraseñas
+                    </button>
+                    <button class="suggestion-chip" onclick="selectCategory('Cambio de jornada', 'bi-calendar-week')">
+                        <i class="bi bi-calendar-week"></i> Cambio de jornada
+                    </button>
+                    <button class="suggestion-chip" onclick="selectCategory('Cambios de grupo y horarios', 'bi-clock-history')">
+                        <i class="bi bi-clock-history"></i> Cambios de grupo
+                    </button>
+                    <button class="suggestion-chip" onclick="selectCategory('Descuentos', 'bi-percent')">
+                        <i class="bi bi-percent"></i> Descuentos
+                    </button>
+                    <button class="suggestion-chip" onclick="selectCategory('Inscripciones', 'bi-pencil-square')">
+                        <i class="bi bi-pencil-square"></i> Inscripciones
+                    </button>
+                    <button class="suggestion-chip" onclick="selectCategory('Documentos de grado', 'bi-file-earmark-text')">
+                        <i class="bi bi-file-earmark-text"></i> Documentos de grado
+                    </button>
+                    <button class="suggestion-chip" onclick="selectCategory('Readmisión y Reingreso', 'bi-arrow-clockwise')">
+                        <i class="bi bi-arrow-clockwise"></i> Readmisión / Reingreso
+                    </button>
+                    <button class="suggestion-chip" onclick="selectCategory('Créditos académicos', 'bi-journal-bookmark')">
+                        <i class="bi bi-journal-bookmark"></i> Créditos académicos
+                    </button>
+                    <button class="suggestion-chip" onclick="selectCategory('Cancelación de semestre', 'bi-x-circle')">
+                        <i class="bi bi-x-circle"></i> Cancelación de semestre
+                    </button>
+                </div>
+            `;
+            
+            chatBody.insertAdjacentHTML('beforeend', suggestionsHTML);
+            scrollToBottom();
+        }
+
+        // Habilitar/deshabilitar input
+        function enableInput() {
+            const input = document.getElementById('chatInput');
+            const btn = document.getElementById('sendBtn');
+            input.disabled = false;
+            btn.disabled = false;
+            input.placeholder = 'Escribe tu pregunta aquí...';
+            input.focus();
+        }
+
+        function disableInput() {
+            const input = document.getElementById('chatInput');
+            const btn = document.getElementById('sendBtn');
+            input.disabled = true;
+            btn.disabled = true;
+            input.placeholder = 'Primero selecciona una categoría arriba...';
+        }
+
+        // Utilidades
+        function getCurrentTime() {
+            const now = new Date();
+            return now.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function formatBotMessage(text) {
+            text = text.replace(/\n/g, '<br>');
+            text = text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
+            if (!text.includes('<br>') && !text.includes('<p>')) {
+                text = `<p>${text}</p>`;
+            }
+            return text;
+        }
+
+        function scrollToBottom() {
+            const chatBody = document.getElementById('chatBody');
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function hideQuickSuggestions() {
+            const suggestions = document.getElementById('quickSuggestions');
+            if (suggestions) {
+                suggestions.style.display = 'none';
+            }
+        }
+
+        function showTypingIndicator() {
+            const indicator = document.getElementById('typingIndicator');
+            if (indicator) {
+                indicator.style.display = 'flex';
+            }
+        }
+
+        function hideTypingIndicator() {
+            const indicator = document.getElementById('typingIndicator');
+            if (indicator) {
+                indicator.style.display = 'none';
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        function getSessionId() {
+            let sessionId = sessionStorage.getItem('chatbot_session_id');
+            if (!sessionId) {
+                sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                sessionStorage.setItem('chatbot_session_id', sessionId);
+            }
+            return sessionId;
+        }
     </script>
 
 </body>
