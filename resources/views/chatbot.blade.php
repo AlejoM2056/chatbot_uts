@@ -790,6 +790,10 @@
                             <i class="bi bi-mortarboard-fill"></i> Modalidades de trabajos de grado
                         </button>
                         <button class="suggestion-chip"
+                            onclick="selectCategory('Registro Saber TyT / Saber Pro', 'bi-person-plus-fill')">
+                            <i class="bi bi-person-plus-fill"></i> Registro Saber TyT / Saber Pro
+                        </button>
+                        <button class="suggestion-chip"
                             onclick="selectCategory('TyT PRO/SABER PRO/ICFES', 'bi-clipboard-check')">
                             <i class="bi bi-clipboard-check"></i> TyT PRO / SABER PRO / ICFES
                         </button>
@@ -1107,6 +1111,9 @@
                     <button class="suggestion-chip" onclick="selectCategory('Modalidades de trabajos de grado')">
                         <i class="bi bi-mortarboard-fill"></i> Modalidades de trabajos de grado
                     </button>
+                    <button class="suggestion-chip" onclick="selectCategory('Registro Saber TyT / Saber Pro')">
+                        <i class="bi bi-person-plus-fill"></i> Registro Saber TyT / Saber Pro
+                    </button>
                     <button class="suggestion-chip" onclick="selectCategory('TyT PRO/SABER PRO/ICFES')">
                         <i class="bi bi-clipboard-check"></i> TyT PRO/ SABER PRO / ICFES
                     </button>
@@ -1179,22 +1186,26 @@
         }
 
         function formatBotMessage(text) {
-
-        text = text.replace(
-            /(https?:\/\/[^\s]+)/g,
-            '<a href="$1" target="_blank">$1</a>',
-        );
-        text = text.replace(/\n\n+/g, '</p><p>');
-        text = text.replace(/\n/g, '<br>');
-
-        if (!text.includes("<p>") && !text.includes("<br>")) {
-            text = `<p>${text}</p>`;
-        } else if (!text.startsWith("<p>")) {
-            text = `<p>${text}</p>`;
-        }
+          text = text.replace(
+            /\[IMG\]https?:\/\/drive\.google\.com\/uc\?export=view&id=([a-zA-Z0-9_-]+)\[\/IMG\]/g,
+            '||IMG||$1||/IMG||'
+          );
+          text = text.replace(/\n/g, "<br>");
+          text = text.replace(
+            /(https?:\/\/(?!drive\.google)[^\s<\)]+)/g,
+            '<a href="$1" target="_blank">$1</a>'
+          );
+          text = text.replace(
+            /\|\|IMG\|\|([a-zA-Z0-9_-]+)\|\|\/IMG\|\|/g,
+            '<br><img src="https://lh3.googleusercontent.com/d/$1" alt="Paso" style="max-width:100%; border-radius:8px; margin:8px 0;" onerror="this.style.display=\'none\'"><br>'
+          );
         
-        return text;
-    }
+          if (!text.includes("<br>") && !text.includes("<p>")) {
+            text = `<p>${text}</p>`;
+          }
+        
+          return text;
+        }
 
         function scrollToBottom() {
             const chatBody = document.getElementById("chatBody");
