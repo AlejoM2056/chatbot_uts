@@ -798,8 +798,8 @@
                             <i class="bi bi-clipboard-check"></i> TyT PRO / SABER PRO / ICFES
                         </button>
                          <button class="suggestion-chip"
-                            onclick="selectCategory('Incapacidades médicas', 'bi-mortarboard-fill')">
-                            <i class="bi bi-mortarboard-fill"></i>Incapacidades médicas 
+                            onclick="selectCategory('Incapacidades médicas', 'bi-clipboard2-pulse-fill')">
+                            <i class="bi bi-clipboard2-pulse-fill"></i>Incapacidades médicas 
                         </button>
                         <button class="suggestion-chip"
                             onclick="selectCategory('Matrícula / Liquidación', 'bi-cash-coin')">
@@ -1122,7 +1122,7 @@
                         <i class="bi bi-clipboard-check"></i> TyT PRO/ SABER PRO / ICFES
                     </button>
                     <button class="suggestion-chip" onclick="selectCategory('Incapacidades médicas')">
-                        <i class="bi bi-clipboard-check"></i> Incapacidades médicas
+                        <i class="bi bi-clipboard2-pulse-fill"></i> Incapacidades médicas
                     </button>
                     <button class="suggestion-chip" onclick="selectCategory('Matrícula / Liquidación')">
                         <i class="bi bi-cash-coin"></i> Matrícula / Liquidación
