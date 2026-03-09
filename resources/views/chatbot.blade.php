@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Asistente Virtual - Ingeniería de Sistemas UTS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
         :root {
@@ -12,6 +13,7 @@
      --uts-green: #A4D233;
      --uts-dark: #2c3e50;
      --uts-gray: #6c757d;
+     --uts-dark-green: #7FA827;
  }
 
  * {
@@ -26,6 +28,231 @@
      background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
      min-height: 100vh;
  }
+
+ .navbar {
+    padding: 0.8rem 0;
+    background: rgba(255, 255, 255, 0.86);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(2.2px);
+    -webkit-backdrop-filter: blur(2.2px);
+    border: 1px solid rgba(255, 255, 255, 1);
+}
+
+.navbar-brand img {
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand img:hover {
+    transform: scale(1.05);
+}
+
+.nav-link {
+    color: var(--uts-dark) !important;
+    font-weight: 500;
+    padding: 0.5rem 1rem !important;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: var(--uts-green);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.nav-link:hover::after {
+    width: 80%;
+}
+
+.nav-link:hover {
+    color: var(--uts-blue) !important;
+}
+
+.btn-uts-green {
+    background-color: var(--uts-green);
+    color: var(--uts-dark);
+    border: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    color: #3e5013;
+    padding: 8px 0;
+}
+
+.btn-asistente {
+    background-color: #cbcbcb;
+    color: var(--uts-dark);
+    border: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    padding: 8px 0;
+}
+
+@media screen and (max-width: 500px) {
+    #contain-desktop-logos {
+        display: none;
+    }
+
+    #contain-mobile-logos {
+        display: block;
+    }
+}
+
+@media screen and (min-width: 501px) {
+    #contain-desktop-logos {
+        display: block;
+    }
+
+    #contain-mobile-logos {
+        display: none;
+    }
+}
+
+.btn-uts-green:hover {
+    background-color: var(--uts-dark-green);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(164, 210, 51, 0.4);
+}
+
+.btn-asistente:hover {
+    background-color: #a9a9a9;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(171, 171, 171, 0.4);
+}
+
+.contain-nav-hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--uts-blue) 0%, var(--uts-green) 100%);
+}
+
+.hero-section {
+    padding: 80px 0;
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)" /></svg>');
+    opacity: 0.3;
+}
+
+.min-vh-70 {
+    min-height: 70vh;
+}
+
+.hero-content {
+    padding: 2rem 0;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.hero-subtitle {
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.hero-description {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+}
+
+.slogan-icon {
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+}
+
+.slogan-text {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--uts-dark);
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn-primary-uts {
+    background-color: white;
+    color: var(--uts-dark);
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.btn-primary-uts:hover {
+    background-color: var(--uts-green);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn-outline-uts {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-uts:hover {
+    background-color: white;
+    color: var(--uts-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.hero-image {
+    position: relative;
+    z-index: 2;
+    animation: float 3s ease-in-out infinite;
+}
+
+.hero-image img {
+    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+}
+
+
+
+
+@keyframes btn-attention {
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.02); }
+}
 
  .page-header {
      background: linear-gradient(135deg, #0066A1 0%, #A4D233 100%);
@@ -728,6 +955,28 @@
 </head>
 
 <body>
+
+<div class="contain-nav-hero">
+        <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
+            <div class="container-fluid px-4">
+                <a id="contain-desktop-logos" class="navbar-brand ms-5" href="/">
+                    <img src="{{ asset('images/favicon.png') }}" alt="Favicon" height="50">
+                    <img src="{{ asset('images/escudo-uts.png') }}" alt="UTS Logo" height="50">
+                </a>
+                <a id="contain-mobile-logos" class="navbar-brand" href="/">
+                    <img src="{{ asset('images/programa-logo.png') }}" alt="Favicon" height="40">
+                </a>
+                <div class="ms-auto">
+                    <a href="https://sistemastg.uts.edu.co" target="_blank" class="btn btn-uts-green px-3">
+                        <i class="bi bi-newspaper me-2"></i>Noticias
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <main>
+            @yield('content')
+        </main>
+    </div>
     <div class="page-header">
         <div class="badge-info">
             <i class="bi bi-robot me-2"></i> Asistente Virtual
@@ -798,8 +1047,8 @@
                             <i class="bi bi-clipboard-check"></i> TyT PRO / SABER PRO / ICFES
                         </button>
                          <button class="suggestion-chip"
-                            onclick="selectCategory('Incapacidades médicas', 'bi-clipboard2-pulse-fill')">
-                            <i class="bi bi-clipboard2-pulse-fill"></i>Incapacidades médicas 
+                            onclick="selectCategory('Incapacidades médicas', 'bi-hospital-fill')">
+                            <i class="bi bi-mortarboard-fill"></i>Incapacidades médicas 
                         </button>
                         <button class="suggestion-chip"
                             onclick="selectCategory('Matrícula / Liquidación', 'bi-cash-coin')">
@@ -1122,7 +1371,7 @@
                         <i class="bi bi-clipboard-check"></i> TyT PRO/ SABER PRO / ICFES
                     </button>
                     <button class="suggestion-chip" onclick="selectCategory('Incapacidades médicas')">
-                        <i class="bi bi-clipboard2-pulse-fill"></i> Incapacidades médicas
+                        <i class="bi bi-clipboard-check"></i> Incapacidades médicas
                     </button>
                     <button class="suggestion-chip" onclick="selectCategory('Matrícula / Liquidación')">
                         <i class="bi bi-cash-coin"></i> Matrícula / Liquidación
