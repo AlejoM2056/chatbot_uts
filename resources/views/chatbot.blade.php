@@ -973,9 +973,6 @@
                 </div>
             </div>
         </nav>
-        <main>
-            @yield('content')
-        </main>
     </div>
     <div class="page-header">
         <div class="badge-info">
