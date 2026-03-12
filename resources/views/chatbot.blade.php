@@ -38,7 +38,7 @@
                 Sobre el Asistente Virtual
             </h2>
             <p>
-                ¡Bienvenido al asistente virtual de la Programa de Ingeniería de Sistemas!
+                ¡Bienvenido al asistente virtual del Programa de Ingeniería de Sistemas!
                 <br>
                 Estamos para ayudarte con información académica, trámites y procesos frecuentes.
             </p>
@@ -70,7 +70,7 @@
                         </div>
                         <div class="message-content">
                             <div class="message-bubble">
-                                <p>¡Hola! 👋 Soy el asistente virtual de la Programa de Ingeniería de Sistemas.</p>
+                                <p>¡Hola! 👋 Soy el asistente virtual del Programa de Ingeniería de Sistemas.</p>
                                 <p>Para ayudarte mejor, <strong>primero selecciona una categoría</strong> de las
                                     opciones a continuación:</p>
                             </div>
@@ -461,7 +461,7 @@
                     </div>
                     <div class="message-content">
                         <div class="message-bubble">
-                            <p>¡Hola! 👋 Soy el asistente virtual de la Programa de Ingeniería de Sistemas.</p>
+                            <p>¡Hola! 👋 Soy el asistente virtual del Programa de Ingeniería de Sistemas.</p>
                             <p>Para ayudarte mejor, <strong>primero selecciona una categoría</strong> de las opciones a continuación:</p>
                         </div>
                         <span class="message-time">${time}</span>
