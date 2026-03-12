@@ -38,7 +38,7 @@
                 Sobre el Asistente Virtual
             </h2>
             <p>
-                ¡Bienvenido al asistente virtual de la Facultad de Ingeniería de Sistemas!
+                ¡Bienvenido al asistente virtual de la Programa de Ingeniería de Sistemas!
                 <br>
                 Estamos para ayudarte con información académica, trámites y procesos frecuentes.
             </p>
@@ -70,7 +70,7 @@
                         </div>
                         <div class="message-content">
                             <div class="message-bubble">
-                                <p>¡Hola! 👋 Soy el asistente virtual de la Facultad de Ingeniería de Sistemas.</p>
+                                <p>¡Hola! 👋 Soy el asistente virtual de la Programa de Ingeniería de Sistemas.</p>
                                 <p>Para ayudarte mejor, <strong>primero selecciona una categoría</strong> de las
                                     opciones a continuación:</p>
                             </div>
@@ -176,7 +176,7 @@
             <div class="footer-info">
                 <div class="footer-section">
                     <h4>Unidades Tecnológicas de Santander</h4>
-                    <p>Facultad de Ingeniería de Sistemas</p>
+                    <p>Programa de Ingeniería de Sistemas</p>
                 </div>
                 <div class="footer-section">
                     <p><i class="bi bi-geo-alt-fill"></i> Calle de los Estudiantes #9-82<br>Edificio C Piso 2 / Bucaramanga</p>
@@ -461,7 +461,7 @@
                     </div>
                     <div class="message-content">
                         <div class="message-bubble">
-                            <p>¡Hola! 👋 Soy el asistente virtual de la Facultad de Ingeniería de Sistemas.</p>
+                            <p>¡Hola! 👋 Soy el asistente virtual de la Programa de Ingeniería de Sistemas.</p>
                             <p>Para ayudarte mejor, <strong>primero selecciona una categoría</strong> de las opciones a continuación:</p>
                         </div>
                         <span class="message-time">${time}</span>
