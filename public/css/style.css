@@ -19,8 +19,8 @@
      min-height: 100vh;
  }
 
- .navbar {
-    padding: 1.4rem 0;
+.navbar {
+    padding: 0.8rem 0;
     background: rgba(255, 255, 255, 0.86);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(2.2px);
@@ -74,7 +74,7 @@
     padding: 8px 0;
 }
 
-.btn-asistente {
+.btn-uts-gray {
     background-color: #cbcbcb;
     color: var(--uts-dark);
     border: none;
@@ -103,74 +103,18 @@
     }
 }
 
-.btn-nav-noticias {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.5rem 1.1rem;
-    background: linear-gradient( var(--uts-green));
-    color: var(--uts-dark) !important;
-    text-decoration: none;
-    border-radius: 50px;
-    font-size: 1rem;
-    font-weight: 600;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    box-shadow: 0 3px 12px rgba(164, 210, 51, 0.4);
-}
-
-.btn-nav-noticias::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, var(--uts-dark-green) 0%, var(--uts-green) 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.btn-nav-noticias:hover::before {
-    opacity: 1;
-}
-
-.btn-nav-noticias:hover {
+.btn-uts-green:hover {
+    background-color: var(--uts-dark-green);
+    color: white;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(164, 210, 51, 0.55);
-    color: var(--uts-dark) !important;
+    box-shadow: 0 4px 12px rgba(164, 210, 51, 0.4);
 }
 
-.btn-nav-noticias > * {
-    position: relative;
-    z-index: 1;
-}
-
-.btn-nav-dot {
-    width: 7px;
-    height: 7px;
-    background: var(--uts-dark);
-    border-radius: 50%;
-    animation: blink 2s infinite;
-    flex-shrink: 0;
-}
-
-.btn-nav-noticias:hover .btn-nav-dot {
-    background: var(--uts-dark);
-}
-
-.btn-nav-arrow {
-    font-size: 0.75rem;
-    opacity: 0.8;
-    transition: transform 0.3s ease;
-}
-
-.btn-nav-noticias:hover .btn-nav-arrow {
-    transform: translate(2px, -2px);
-}
-
-
-.contain-nav-hero {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    background: linear-gradient(135deg, var(--uts-blue) 0%, var(--uts-green) 100%);
+.btn-uts-gray:hover {
+    background-color: #a9a9a9;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(171, 171, 171, 0.4);
 }
 
 .hero-section {
@@ -728,6 +672,12 @@
      cursor: not-allowed;
  }
 
+
+
+
+
+
+ 
  .chat-footer-info {
      margin-top: 0.75rem;
      text-align: center;
