@@ -11,26 +11,47 @@
 <body>
 
 <div class="contain-nav-hero">
-        <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
-            <div class="container-fluid px-4">
-                <a id="contain-desktop-logos" class="navbar-brand ms-5" href="/">
-                    <img src="{{ asset('images/favicon.png') }}" alt="Favicon" height="50">
-                    <img src="{{ asset('images/escudo-uts.png') }}" alt="UTS Logo" height="50">
-                </a>
-                <a id="contain-mobile-logos" class="navbar-brand" href="/">
-                    <img src="{{ asset('images/programa-logo.png') }}" alt="Favicon" height="40">
-                </a>
-              <div class="ms-auto d-flex align-items-center gap-2">
-                 <a href="https://sistemastg.uts.edu.co" target="_blank" class="btn-nav-noticias">
-                    <span class="btn-nav"></span>
-                    <i class="bi bi-newspaper"></i>
-                    <span>Noticias del Programa</span>
-                </a>
+         <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
+        <div class="container-fluid px-4">
+ 
+            <a id="contain-desktop-logos" class="navbar-brand ms-3" href="/">
+                <img src="{{ asset('images/favicon.png') }}" alt="Favicon" height="50">
+                <img src="{{ asset('images/escudo-uts.png') }}" alt="UTS Logo" height="50">
+            </a>
+ 
+            <a id="contain-mobile-logos" class="navbar-brand" href="/">
+                <img src="{{ asset('images/programa-logo.png') }}" alt="Favicon" height="40">
+            </a>
+ 
+            <button class="navbar-toggler border-0 ms-auto" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarButtons"
+                aria-controls="navbarButtons"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+ 
+            <div class="collapse navbar-collapse justify-content-end" id="navbarButtons">
+                <div class="d-flex flex-column flex-lg-row align-items-stretch align-items-lg-center gap-2 py-3 py-lg-0">
+ 
+                    <a href="https://sistemastg.uts.edu.co" target="_blank" class="btn btn-uts-green px-3">
+                        <i class="bi bi-newspaper me-2"></i>Noticias del Programa
+                    </a>
+ 
+                    <a href="https://sistemastg.uts.edu.co/#documentos" class="btn btn-uts-gray px-3">
+                        <i class="bi bi-folder2-open me-2"></i>Documentos
+                    </a>
+ 
+                </div>
             </div>
-            </div>
-        </nav>
+ 
+        </div>
+    </nav>
     </div>
  
+
+    
     <div class="container">
         <div class="info-section">
             <h2>
@@ -108,7 +129,6 @@
             </div>
         </div>
     </div>
-    
     <footer class="footer-uts">
         <div class="footer-content">
             <div class="footer-logo">
@@ -121,7 +141,7 @@
                 </div>
                 <div class="footer-section">
                     <p><i class="bi bi-geo-alt-fill"></i> Calle de los Estudiantes #9-82<br>Edificio C Piso 2 / Bucaramanga</p>
-                    <p><i class="bi bi-envelope-fill"></i> sistemas@correo.uts.edu.co</p>
+                    <p><i class="bi bi-envelope-fill"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6b1802181f0e060a182b080419190e04451e1f18450e0f1e450804">[email&#160;protected]</a></p>
                 </div>
             </div>
             <div class="footer-social">
@@ -137,7 +157,8 @@
             <p class="footer-tagline">¡Lo hacemos posible!</p>
         </div>
     </footer>
- 
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 <script>
     const WEBHOOK_URL = "{{ config('chatbot.webhook_url', 'https://n8n.srv1314294.hstgr.cloud/webhook/2b915700-f67d-45e1-80a2-bc1f737dcdf8') }}";
@@ -179,6 +200,18 @@
                 { label: "Readmisión / Reingreso",        icon: "bi-arrow-clockwise"},
             ]
         },
+        "Descargar Documentos": {
+            icon: "bi-folder2-open",
+            autoSend: true,
+            subcategories: [
+                { label: "Documentos de grado",          icon: "bi-mortarboard-fill"      },
+                { label: "Estratégicos",                 icon: "bi-kanban-fill"           },
+                { label: "Misionales",                   icon: "bi-flag-fill"             },
+                { label: "Apoyo",                        icon: "bi-people-fill"           },
+                { label: "Seguimiento y Control",        icon: "bi-bar-chart-line-fill"   },
+                { label: "Direccionamiento Estratégico", icon: "bi-bar-chart-line-fill"   },
+            ]
+        },
         "Soporte Técnico": {
             icon: "bi-key-fill",
             direct: "Usuarios / Contraseñas / Correo institucional"
@@ -187,6 +220,7 @@
             icon: "bi-hospital-fill",
             direct: "Incapacidades médicas"
         },
+        
     };
 
     function renderMainCategories() {
@@ -267,12 +301,13 @@
             collectingUserInfo = false;
             setTimeout(() => {
                 hideTypingIndicator();
-                addBotMessage(
-                    `Perfecto <strong>${userInfo.name}</strong>, has seleccionado: ` +
-                    `<strong>${currentCategory}</strong><br>` +
-                    `¿Cuál es tu pregunta sobre este tema?`
-                );
-                enableInput();
+                if (isAutoSend(currentCategory)) {
+                    addBotMessage( `<strong>${userInfo.name}</strong>, el Programa de Ingeniería de Sistemas ponemos a tu disposición el documento de <strong>${currentCategory}</strong>. Puedes descargarlo en el siguiente enlace:`);
+                    sendToN8N(currentCategory); 
+                } else {
+                    addBotMessage(`Perfecto <strong>${userInfo.name}</strong>...`);
+                    enableInput();
+                }
             }, 800);
             return;
         }
@@ -285,6 +320,15 @@
             );
             enableInput();
         }, 800);
+    }
+
+    function isAutoSend(category) {
+        for (const data of Object.values(categories)) {
+            if (data.autoSend && data.subcategories) {
+                if (data.subcategories.some(s => s.label === category)) return true;
+            }
+        }
+        return false;
     }
 
     function sendMessage() {
@@ -330,8 +374,8 @@
                 return;
             }
 
-            userInfo.name      = name;
-            collectingUserInfo = "email";
+            userInfo.name      = name;       
+            collectingUserInfo = "email";   
 
             setTimeout(() => {
                 hideTypingIndicator();
@@ -341,7 +385,7 @@
                 );
                 enableInput();
             }, 700);
-            return;
+            return;                     
         }
 
         if (collectingUserInfo === "email") {
@@ -364,11 +408,20 @@
 
             setTimeout(() => {
                 hideTypingIndicator();
-                addBotMessage(
-                    `Perfecto <strong>${userInfo.name}</strong> ✅<br>` +
-                    `Ahora sí, ¿cuál es tu pregunta sobre <strong>${currentCategory}</strong>?`
-                );
-                enableInput();
+                if (isAutoSend(currentCategory)) {
+                    addBotMessage(
+                        `<strong>${userInfo.name}</strong>,el Programa de Ingeniería de Sistemas ` +
+                        `ponemos a tu disposición el documento de <strong>${currentCategory}</strong>. ` +
+                        `Puedes descargarlo en el siguiente enlace:`
+                    );
+                    sendToN8N(currentCategory);
+                } else {
+                    addBotMessage(
+                        `Perfecto <strong>${userInfo.name}</strong> ✅<br>` +
+                        `Ahora sí, ¿cuál es tu pregunta sobre <strong>${currentCategory}</strong>?`
+                    );
+                    enableInput();
+                }
             }, 700);
         }
     }
