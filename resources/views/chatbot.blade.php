@@ -141,7 +141,7 @@
                 </div>
                 <div class="footer-section">
                     <p><i class="bi bi-geo-alt-fill"></i> Calle de los Estudiantes #9-82<br>Edificio C Piso 2 / Bucaramanga</p>
-                    <p><i class="bi bi-envelope-fill"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6b1802181f0e060a182b080419190e04451e1f18450e0f1e450804">[email&#160;protected]</a></p>
+                    <p><i class="bi bi-envelope-fill"></i> sistemas@correo.uts.edu.co</p>
                 </div>
             </div>
             <div class="footer-social">
