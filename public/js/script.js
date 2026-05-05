@@ -1,4 +1,4 @@
-const WEBHOOK_URL = "{{ config('chatbot.webhook_url', '#url') }}";
+const WEBHOOK_URL = "{{ config('chatbot.webhook_url', 'https://n8n.srv1314294.hstgr.cloud/webhook/2b915700-f67d-45e1-80a2-bc1f737dcdf8') }}";
     let messageHistory     = [];
     let currentCategory    = null;
     let userInfo           = { name: null, email: null };
