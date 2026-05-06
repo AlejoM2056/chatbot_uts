@@ -161,5 +161,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 <script src="{{ asset('js/script.js') }}"></script>
+<script>const WEBHOOK_URL = "{{ config('chatbot.webhook_url', 'https://n8n.srv1314294.hstgr.cloud/webhook/2b915700-f67d-45e1-80a2-bc1f737dcdf8') }}";</script>
 </body>
 </html>
