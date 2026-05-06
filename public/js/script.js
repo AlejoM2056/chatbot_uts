@@ -1,4 +1,4 @@
-const WEBHOOK_URL = "{{ config('chatbot.webhook_url', 'https://n8n.srv1314294.hstgr.cloud/webhook/2b915700-f67d-45e1-80a2-bc1f737dcdf8') }}";
+   
     let messageHistory     = [];
     let currentCategory    = null;
     let userInfo           = { name: null, email: null };
@@ -291,6 +291,7 @@ const WEBHOOK_URL = "{{ config('chatbot.webhook_url', 'https://n8n.srv1314294.hs
                 hideTypingIndicator();
                 const botResponse = data.response || "Lo siento, no pude procesar tu mensaje.";
                 addBotMessage(botResponse);
+                addRatingWidget();
 
                 setTimeout(() => {
                     addBotMessage(
@@ -504,3 +505,58 @@ const WEBHOOK_URL = "{{ config('chatbot.webhook_url', 'https://n8n.srv1314294.hs
         }
         return id;
     }
+
+    function addRatingWidget() {
+    const chatBody = document.getElementById("chatBody");
+    const ratingId = "rating_" + Date.now();
+
+    const starsHtml = [1, 2, 3, 4, 5].map(i => `
+        <button class="star-btn" data-value="${i}"
+            onmouseover="hoverStars('${ratingId}', ${i})"
+            onmouseout="resetStars('${ratingId}')"
+            onclick="submitRating('${ratingId}', ${i})">
+            <i class="bi bi-star-fill"></i>
+        </button>
+    `).join('');
+
+    chatBody.insertAdjacentHTML("beforeend", `
+        <div class="rating-widget" id="${ratingId}">
+            <span class="rating-label">¿Te fue útil la respuesta?</span>
+            <div class="rating-stars" id="${ratingId}_stars">${starsHtml}</div>
+        </div>
+    `);
+
+    scrollToBottom();
+}
+
+function hoverStars(ratingId, value) {
+    const widget = document.getElementById(ratingId);
+    if (!widget || widget.dataset.rated) return;
+    widget.querySelectorAll('.star-btn').forEach((btn, i) => {
+        btn.classList.toggle('hovered', i < value);
+    });
+}
+
+function resetStars(ratingId) {
+    const widget = document.getElementById(ratingId);
+    if (!widget || widget.dataset.rated) return;
+    widget.querySelectorAll('.star-btn').forEach(btn => btn.classList.remove('hovered'));
+}
+
+function submitRating(ratingId, value) {
+    const widget = document.getElementById(ratingId);
+    if (!widget || widget.dataset.rated) return;
+
+    widget.dataset.rated = "true";
+    widget.querySelectorAll('.star-btn').forEach((btn, i) => {
+        btn.disabled = true;
+        btn.classList.remove('hovered');
+        btn.classList.toggle('selected', i < value);
+    });
+
+    const label = widget.querySelector('.rating-label');
+    label.innerHTML = value >= 4
+        ? `<span class="rating-thanks">¡Gracias!</span>`
+        : `<span class="rating-thanks">¡Gracias! Seguiremos mejorando.</span>`;
+
+}
